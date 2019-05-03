@@ -8,11 +8,11 @@ services:
     env_file:
       - ../env/.rabbitmq
     networks:
-      - demo_data
+      - mathtest_data
     deploy:
       placement:
         constraints:
           - node.role == manager
 
 networks:
-  demo_data:
+  mathtest_data:
