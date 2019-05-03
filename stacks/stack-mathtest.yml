@@ -1,12 +1,12 @@
 version: '3.4'
 services:
   demo:
-    image: chalice/learn_server:latest
+    image: chalice/mathtest:latest
     env_file:
       - ../env/.env
       - ../env/.rabbitmq
     networks:
-      - demo_data
+      - mathtest_data
       - reverse_proxy
     deploy:
       replicas: 1
@@ -21,13 +21,13 @@ services:
         constraints:
           - node.role == manager
   demo-celery:
-    image: chalice/learn_server:latest
-    entrypoint: /docker_api/celery-entrypoint.sh
+    image: chalice/mathtest:latest
+    entrypoint: /mathtest/celery-entrypoint.sh
     env_file:
       - ../env/.env
       - ../env/.rabbitmq
     networks:
-      - demo_data
+      - mathtest_data
     deploy:
       replicas: 1
       update_config:
@@ -43,5 +43,5 @@ services:
 
 
 networks:
-  demo_data:
+  mathtest_data:
   reverse_proxy:
