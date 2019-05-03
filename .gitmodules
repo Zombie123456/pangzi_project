@@ -1,0 +1,6 @@
+[submodule "math_test"]
+	path = math_test
+	url = https://github.com/Zombie123456/math_test.git
+[submodule "nginx-pang"]
+	path = nginx-pang
+	url = https://github.com/Zombie123456/nginx-pang.git
