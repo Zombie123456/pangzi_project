@@ -1,0 +1,10 @@
+{
+  "services": {
+    "chalice/learn_server:latest": {
+      "service": "chalice_ser_mathtest,chalice_ser_mathtest-celery"
+    },
+    "chalice/learn_server:production": {
+      "service": "chalice_ser_mathtest,chalice_ser_mathtest-celery"
+    }
+  }
+}
