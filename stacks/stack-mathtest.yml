@@ -1,6 +1,6 @@
 version: '3.4'
 services:
-  demo:
+  mathtest:
     image: chalice/mathtest:latest
     env_file:
       - ../env/.env
@@ -20,7 +20,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-  demo-celery:
+  mathtest-celery:
     image: chalice/mathtest:latest
     entrypoint: /mathtest/celery-entrypoint.sh
     env_file:
