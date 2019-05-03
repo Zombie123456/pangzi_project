@@ -1,0 +1,60 @@
+version: '3.4'
+services:
+
+    for_mysql:
+      expose:
+        - "3306"
+      image: mysql:5.7.25
+      environment:
+        - MYSQL_ROOT_PASSWORD=pass1234
+      command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      volumes:
+        - ./mysqldata:/var/lib/mysql
+    redis:
+      restart: always
+      image: redis:5.0.4
+      volumes:
+        - redis-data:/data
+    nginx:
+      restart: always
+      image: nginx:1.15.9
+      volumes:
+        - ./nginx-pang/conf.d:/etc/nginx/conf.d
+        - ./nginx-pang/nginx.conf:/etc/nginx/nginx.conf
+      env_file:
+        - ./env/.env
+      ports:
+        - target: "8000"
+          published: "8000"
+          mode: host
+        - target: "80"
+          published: "80"
+          mode: host
+    rabbitmq:
+      restart: always
+      image: rabbitmq:3.7.8-management
+      env_file:
+      - ./env/.rabbitmq
+      ports:
+      - 15673:15672
+    mathtest:
+      image: chalice/mathtest:latest
+      build: ./math_test
+      restart: always
+      volumes:
+        - ./math_test:/mathtest
+      depends_on:
+        - for_mysql
+    mathtest-celery:
+      image: chalice/mathtest:latest
+      build: ./math_test
+      restart: always
+      volumes:
+        - ./math_test:/mathtest
+      depends_on:
+        - for_mysql
+      entrypoint: /mathtest/celery-entrypoint.sh
+
+volumes:
+    mysqldata:
+    redis-data:

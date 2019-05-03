@@ -1,0 +1,4 @@
+RABBITMQ_DEFAULT_USER=mathtest
+RABBITMQ_DEFAULT_PASS=mathtest
+RABBITMQ_DEFAULT_VHOST=mathtest
+BROKER_URL=amqp://mathtest:mathtest@rabbitmq:5672/mathtest
